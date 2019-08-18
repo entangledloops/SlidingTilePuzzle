@@ -1,6 +1,6 @@
 Example run of Solver with default settings:
 
-`
+```
       0 1 2
      ------
   0|  1 2 3
@@ -12,4 +12,4 @@ heuristic: avg moves
 	manhattan: 488
 	hamming: 770
 	random: 221814
-`
+```

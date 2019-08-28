@@ -151,9 +151,8 @@ public class SlidingTilePuzzle
         final int col = move.col;
 
         // swap empty tile with new tile
-        int temp = grid[row][col];
+        grid[emptyRow][emptyCol] = grid[row][col];
         grid[row][col] = 0;
-        grid[emptyRow][emptyCol] = temp;
 
         // update empty tile position
         emptyRow = row;

@@ -225,8 +225,6 @@ public class SlidingTilePuzzle
             }
             shuffled &= !solved();
         } while (!shuffled);
-
-
     }
 
     public boolean solved()

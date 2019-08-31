@@ -173,21 +173,61 @@ public class SlidingTilePuzzle
         movesMade -= 2;
     }
 
-    public void shuffle()
-    {
-        // shuffle by making random valid moves
-        long movesRemaining = size*size*size*2;
-        while (movesRemaining-- > 0)
-        {
-            List<Move> moves = getMoves();
-            move(moves.get(random.nextInt(moves.size())));
-        }
+    public void shuffle() {
+        boolean shuffled;
+        do {
+            // randomly swap pieces
+            for (int row = 0; row < size; ++row) {
+                for (int col = 0; col < size; ++col) {
+                    int temp = grid[row][col];
+                    int swapRow = random.nextInt(size);
+                    int swapCol = random.nextInt(size);
+                    grid[row][col] = grid[swapRow][swapCol];
+                    grid[swapRow][swapCol] = temp;
+                }
+            }
 
-        // if the board is still solved, shuffle again
-        if (solved()) shuffle();
+            // ensure puzzle is still solvable:
+            final int len = size*size;
+            int inversions = 0;
+            for (int pos = 0; pos < len; ++pos) {
+                int val = grid[pos/size][pos%size];
+                if (val == 0) continue;
+                for (int remainder = pos+1; remainder < len; ++remainder) {
+                    int nextVal = grid[remainder/size][remainder%size];
+                    if (nextVal == 0) continue;
+                    if (nextVal < val) ++inversions;
+                }
+            }
 
-        // don't count shuffle moves
-        clearHistory();
+            // update the position of the empty space
+            boolean foundEmpty = false;
+            for (int row = 0; row < size; ++row) {
+                for (int col = 0; col < size; ++col) {
+                    if (grid[row][col] == 0) {
+                        emptyRow = row;
+                        emptyCol = col;
+                        foundEmpty = true;
+                        break;
+                    }
+                }
+                if (foundEmpty) break;
+            }
+
+            // check solvability of the puzzle
+            if (size % 2 != 0) {
+                shuffled = (inversions % 2 == 0);
+            } else {
+                if (emptyRow % 2 == 0) {
+                    shuffled = (inversions % 2 != 0);
+                } else {
+                    shuffled = (inversions % 2 == 0);
+                }
+            }
+            shuffled &= !solved();
+        } while (!shuffled);
+
+
     }
 
     public boolean solved()

@@ -123,7 +123,7 @@ public class Solver {
     {
         SlidingTilePuzzle puzzle = new SlidingTilePuzzle(3);
         Solver solver = new Solver(puzzle);
-        int runs = 100;
+        int runs = 10;
 
         puzzle.print();
         System.out.println("runs: " + runs + "\nheuristic: avg moves");

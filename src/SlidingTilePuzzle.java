@@ -37,9 +37,9 @@ public class SlidingTilePuzzle
         // cache some formatting strings for printing the board later
         final int sizeLen = String.valueOf(size).length() + 1; // +1 for the space printed after the value
         final int valLen = String.valueOf((size*size)-1).length() + 1;
-        cornerPrefix = "%" + (size+2) + "s";
+        cornerPrefix = "%" + (sizeLen+2) + "s";
         colSeparator = "\n" + cornerPrefix + new String(new byte[valLen*size]).replace('\0', '-') + "\n";
-        rowFormat = "%" + size + "d";
+        rowFormat = "%" + sizeLen + "d";
         valueFormat = "%" + valLen + "d";
     }
 
@@ -151,9 +151,8 @@ public class SlidingTilePuzzle
         final int col = move.col;
 
         // swap empty tile with new tile
-        int temp = grid[row][col];
+        grid[emptyRow][emptyCol] = grid[row][col];
         grid[row][col] = 0;
-        grid[emptyRow][emptyCol] = temp;
 
         // update empty tile position
         emptyRow = row;

@@ -186,7 +186,7 @@ public class SlidingTilePuzzle
                 }
             }
 
-            // ensure puzzle is still solvable:
+            // compute inversions for solvability calculation
             final int len = size*size;
             int inversions = 0;
             for (int pos = 0; pos < len; ++pos) {
@@ -213,7 +213,7 @@ public class SlidingTilePuzzle
                 if (foundEmpty) break;
             }
 
-            // check solvability of the puzzle
+            // ensure solvability of the puzzle
             if (size % 2 != 0) {
                 shuffled = (inversions % 2 == 0);
             } else {

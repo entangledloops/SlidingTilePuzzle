@@ -6,7 +6,7 @@ import java.util.Stack;
 public class SlidingTilePuzzle
 {
     // the seed for the PRNG
-    private static final int SEED = 1;
+    public static final int SEED = 0;
 
     private final int size; // width and height of the grid
     private final int[][] grid; // the puzzle grid
@@ -125,26 +125,8 @@ public class SlidingTilePuzzle
         return moves;
     }
 
-    public boolean validateMove(Move move)
-    {
-        final int row = move.row;
-        final int col = move.col;
-
-        if (row < 0 || row >= size || col < 0 || col >= size) return false;
-        if (row+1 == emptyRow && col == emptyCol) return true;
-        if (row-1 == emptyRow && col == emptyCol) return true;
-        if (row == emptyRow && col+1 == emptyCol) return true;
-        if (row == emptyRow && col-1 == emptyCol) return true;
-
-        return false;
-    }
-
     public void move(Move move)
     {
-        if (!validateMove(move)) {
-            throw new IllegalArgumentException("invalid move: " + move);
-        }
-
         history.add(new Move(emptyRow, emptyCol));
 
         final int row = move.row;

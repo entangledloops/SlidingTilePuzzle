@@ -64,7 +64,7 @@ public class Solver {
         return move.hashCode();
     }
 
-    public List<SlidingTilePuzzle.Move> newMoves(List<SlidingTilePuzzle.Move> moves)
+    public List<SlidingTilePuzzle.Move> filterClosedMoves(List<SlidingTilePuzzle.Move> moves)
     {
         List<SlidingTilePuzzle.Move> newMoves = new ArrayList<>();
 
@@ -80,10 +80,10 @@ public class Solver {
 
     public void solve(Function<SlidingTilePuzzle.Move, Long> heuristic)
     {
-        Random random = new Random(1);
+        Random random = new Random(SlidingTilePuzzle.SEED);
         while (!puzzle.solved()) {
             List<SlidingTilePuzzle.Move> moves = puzzle.getMoves();
-            List<SlidingTilePuzzle.Move> newMoves = newMoves(moves);
+            List<SlidingTilePuzzle.Move> newMoves = filterClosedMoves(moves);
 
             // if there are no new moves, pick one randomly
             if (newMoves.isEmpty()) {

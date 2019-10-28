@@ -28,8 +28,9 @@ public class Solver {
         for (int row = 0; row < size; ++row) {
             for (int col = 0; col < size; ++col) {
                 int tile = puzzle.getTile(row, col);
-                int trueRow = tile == 0 ? size-1 : ((tile-1) / size);
-                int trueCol = tile == 0 ? size-1 : ((tile-1) % size);
+                if (tile == 0) continue;
+                int trueRow = (tile-1) / size;
+                int trueCol = (tile-1) % size;
                 distance += Math.abs(row - trueRow) + Math.abs(col - trueCol);
             }
         }
@@ -47,11 +48,10 @@ public class Solver {
         int val = 0;
         for (int row = 0; row < size; ++row) {
             for (int col = 0; col < size; ++col) {
+                ++val;
                 int tile = puzzle.getTile(row, col);
-                if (row == size-1 && col == size-1) {
-                    if (tile != 0) ++distance;
-                }
-                else if (++val != tile) ++distance;
+                if (tile == 0) continue;
+                if (val != tile) ++distance;
             }
         }
 

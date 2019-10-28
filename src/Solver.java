@@ -121,9 +121,9 @@ public class Solver {
 
     public static void main(String[] args)
     {
-        int runs = Integer.parseInt(args[0]);
-        SlidingTilePuzzle puzzle = new SlidingTilePuzzle(Integer.parseInt(args[1]));
+        SlidingTilePuzzle puzzle = new SlidingTilePuzzle(Integer.parseInt(args[0]));
         Solver solver = new Solver(puzzle);
+        int runs = Integer.parseInt(args[1]);
 
         puzzle.print();
         System.out.println("runs: " + runs + "\nheuristic: avg moves");

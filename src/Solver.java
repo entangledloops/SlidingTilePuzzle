@@ -18,13 +18,12 @@ public class Solver {
         closed.clear();
     }
 
-    public long manhattanDistance(SlidingTilePuzzle.Move move)
+    public double manhattanDistance(SlidingTilePuzzle.Move move)
     {
-        long distance = 0;
+        double distance = 0;
         puzzle.move(move);
 
         final int size = puzzle.size();
-        int val = 0;
         for (int row = 0; row < size; ++row) {
             for (int col = 0; col < size; ++col) {
                 int tile = puzzle.getTile(row, col);
@@ -39,9 +38,29 @@ public class Solver {
         return distance;
     }
 
-    public long hammingDistance(SlidingTilePuzzle.Move move)
+    public double euclideanDistance(SlidingTilePuzzle.Move move)
     {
-        long distance = 0;
+        double distance = 0;
+        puzzle.move(move);
+
+        final int size = puzzle.size();
+        for (int row = 0; row < size; ++row) {
+            for (int col = 0; col < size; ++col) {
+                int tile = puzzle.getTile(row, col);
+                if (tile == 0) continue;
+                int a = Math.abs(row - ((tile-1) / size));
+                int b = Math.abs(col - ((tile-1) % size));
+                distance += Math.sqrt(a*a + b*b);
+            }
+        }
+
+        puzzle.undo();
+        return distance;
+    }
+
+    public double hammingDistance(SlidingTilePuzzle.Move move)
+    {
+        double distance = 0;
         puzzle.move(move);
 
         final int size = puzzle.size();
@@ -59,7 +78,7 @@ public class Solver {
         return distance;
     }
 
-    public long randomDistance(SlidingTilePuzzle.Move move)
+    public double randomDistance(SlidingTilePuzzle.Move move)
     {
         return move.hashCode();
     }
@@ -78,7 +97,7 @@ public class Solver {
         return newMoves;
     }
 
-    public void solve(Function<SlidingTilePuzzle.Move, Long> heuristic)
+    public void solve(Function<SlidingTilePuzzle.Move, Double> heuristic)
     {
         Random random = new Random(SlidingTilePuzzle.SEED);
         while (!puzzle.solved()) {
@@ -92,10 +111,10 @@ public class Solver {
             }
 
             // identify the move with the smallest distance to goal
-            long bestDistance = heuristic.apply(newMoves.get(0));
+            double bestDistance = heuristic.apply(newMoves.get(0));
             int bestIndex = 0;
             for (int i = 1; i < newMoves.size(); ++i) {
-                long distance = heuristic.apply(newMoves.get(i));
+                double distance = heuristic.apply(newMoves.get(i));
                 if (distance < bestDistance) {
                     bestDistance = distance;
                     bestIndex = i;
@@ -107,7 +126,7 @@ public class Solver {
         }
     }
 
-    public BigInteger avgMoves(int runs, Function<SlidingTilePuzzle.Move, Long> heuristic)
+    public BigInteger avgMoves(int runs, Function<SlidingTilePuzzle.Move, Double> heuristic)
     {
         BigInteger total = BigInteger.ZERO;
         for (int i = 0; i < runs; ++i) {
@@ -128,6 +147,7 @@ public class Solver {
         puzzle.print();
         System.out.println("runs: " + runs + "\nheuristic: avg moves");
         System.out.println("\tmanhattan: " + solver.avgMoves(runs, solver::manhattanDistance));
+        System.out.println("\teuclidean: " + solver.avgMoves(runs, solver::euclideanDistance));
         System.out.println("\thamming: " + solver.avgMoves(runs, solver::hammingDistance));
         System.out.println("\trandom: " + solver.avgMoves(runs, solver::randomDistance));
     }

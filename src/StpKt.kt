@@ -216,9 +216,9 @@ fun solve(puzzle: Puzzle, heuristic: Puzzle.() -> Double, bound: Double = 1.0): 
 }
 
 fun main(args: Array<String>) {
-    val puzzle = Puzzle(args[0].toShort())
-    val bound = 1.0//args[0].toDouble()
-    val runs = args[1].toInt()
+    val puzzle = Puzzle(if (args.size > 0) args[0].toShort() else 3)
+    val runs = if (args.size > 1) args[1].toInt() else 1
+    val bound = if (args.size > 2) args[2].toDouble() else 1.0
     for (i in 1..runs) {
         // shuffle and store initial state
         puzzle.shuffle()

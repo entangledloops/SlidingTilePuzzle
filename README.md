@@ -1,4 +1,5 @@
-Example run of Solver with default settings:
+The Java source implements a simple greedy best-first search that never backs up. 
+It favors new moves over previously tried moves, and when there are no new moves left from a position, it chooses randomly.
 
 ```
      0 1 2
@@ -15,10 +16,9 @@ heuristic: avg moves
 	random: 294180
 ```
 
-The java source implements a simple greedy best-first search that never backs up. 
-It favors new moves over previously tried moves, and when there are no new moves left from a position, it chooses randomly.
 
-For comparison, the Kotlin source implements A* to find optimal solutions.
+For comparison, the Kotlin source implements A* to find optimal solutions. You can tweak the weight parameter in the source
+to find bounded solutions to larger problems.
 
 ```
 [3, 4, 8]
@@ -35,3 +35,7 @@ manhattan solution found in 1 ms:
 	iterations: 473
 	pathLen: 21
 ```
+
+The output between the two implementations
+isn't consistent because they were written independently and are posted here together for educational purposes. If I 
+find the time, I'll come back and normalize the outputs later.

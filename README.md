@@ -21,19 +21,19 @@ For comparison, the Kotlin source implements A* to find optimal solutions. You c
 to find bounded solutions to larger problems.
 
 ```
-[3, 4, 8]
-[1, 6, 0]
-[2, 7, 5]
+[7, 0, 3]
+[1, 4, 2]
+[5, 8, 6]
 
-hamming solution found in 19 ms:
-	iterations: 4973
-	pathLen: 21
-euclidean solution found in 3 ms:
-	iterations: 861
-	pathLen: 21
-manhattan solution found in 1 ms:
-	iterations: 473
-	pathLen: 21
+manhattan solution found in 53 ms
+	iterations: 104
+	pathLen: 15
+euclidean solution found in 2 ms
+	iterations: 114
+	pathLen: 15
+hamming solution found in 3 ms
+	iterations: 414
+	pathLen: 15
 ```
 
 The output between the two implementations

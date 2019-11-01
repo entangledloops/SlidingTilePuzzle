@@ -155,7 +155,6 @@ val manhattan: Puzzle.() -> Double = {
     distance
 }
 
-
 fun solve(puzzle: Puzzle, heuristic: Puzzle.() -> Double, bound: Double = 1.0): Pair<Long, Int> {
     class Node(parent: Node? = null) : Comparable<Node> {
         val grid = Array(puzzle.grid.size) { row -> puzzle.grid[row].copyOf() }
@@ -174,9 +173,6 @@ fun solve(puzzle: Puzzle, heuristic: Puzzle.() -> Double, bound: Double = 1.0): 
             var pathLen = -1
             while (next != null) {
                 ++pathLen
-                //puzzle.restore(node.grid)
-                //println(puzzle)
-                //println("${next.f} = ${next.g} + ${next.h}")
                 next = next.parent
             }
             return pathLen
@@ -204,7 +200,6 @@ fun solve(puzzle: Puzzle, heuristic: Puzzle.() -> Double, bound: Double = 1.0): 
         ++iterations
         node = open.poll()
         closed.add(node)
-        //println("${node.f} = ${node.g} + ${node.h}")
 
         // restore grid from node; quit if solved, otherwise expand
         with (puzzle) {

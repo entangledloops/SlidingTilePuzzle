@@ -39,3 +39,10 @@ hamming solution found in 3 ms
 The output between the two implementations
 isn't consistent because they were written independently and are posted here together for educational purposes. If I 
 find the time, I'll come back and normalize the outputs later.
+
+The `Grapher.kt` file contains an ad hoc program that generates the state space graph up to a certain depth limit.
+Take a look in the [`img`](https://github.com/entangledloops/SlidingTilePuzzle/blob/master/img) subdirectory for some 
+full resolution outputs. It's very much a hack-job; you'll need to have LaTeX and Graphviz installed, and probably need to
+be running Linux to use it. Here's a low-res example of the output:
+
+![dot-2048](https://github.com/entangledloops/SlidingTilePuzzle/blob/master/img/dot-2048-small.png)
